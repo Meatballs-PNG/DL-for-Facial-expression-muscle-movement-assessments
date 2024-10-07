@@ -216,7 +216,7 @@
     }
 
     /* 視訊框內的圓框濾鏡 */
-    .face filter {
+    .facefilter {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -508,9 +508,9 @@
         <!-- 攝像頭功能頁 -->
         <div class="add-sample-container" id="add-sample-camera">
             <button class="close-button" id="close-btn-camera"><i class="bi bi-x-circle-fill" style="transform: scale(1.5); color: red;"></i></button>
-            <div class="text">請將臉部對齊圓圈。</div>
-            <div class="box"> <video id="video" autoplay="true" playsinline></video>
-                <div class="face filter"></div></div>
+            <div class="text">請將臉部對齊圓圈。</div>	    
+            <div class="box"> <video id="video" autoplay="true" playsinline></video> 
+	    <div class="facefilter"></div></div>              
             <button class="norm-button" id="analyzeBtn-camera">開始分析</button>
         </div>
 
@@ -547,7 +547,7 @@
     </div>
 </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
       const sidebarBtn = document.getElementById('sidebarBtn');
       const settingBtn = document.getElementById('settingBtn');
       const sidebar = document.getElementById('sidebar');
