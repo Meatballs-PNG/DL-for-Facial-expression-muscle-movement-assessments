@@ -893,6 +893,16 @@ async def web2():
         object-fit: cover; /* 填满容器并保持纵横比 */
     }
 
+   /* 攝像頭頁面-按鈕-容器 */
+    .Camera-Btn-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        margin-top: 10px;
+    }
+
+
     /* 上傳圖像頁面-按鈕-容器 */
     .Upload-Btn-container{
         display: flex;
@@ -1080,8 +1090,10 @@ async def web2():
             <button class="close-button" id="close-btn-camera"><i class="bi bi-x-circle-fill" style="transform: scale(1.5); color: red;"></i></button>
             <div class="text">請將臉部對齊圓圈</div>	    
             <div class="box"> <video id="video" autoplay="true" playsinline></video> 
-	    <div class="facefilter"></div></div>              
+	        <div class="facefilter"></div></div>   
+          <div class="Camera-Btn-container" id="Camera-Btn-container">
             <button class="norm-button" id="analyzeBtn-camera">開始分析</button>
+          </div>
         </div>
 
 	<!-- 上傳圖像功能頁 -->
@@ -1521,7 +1533,6 @@ document.getElementById('analyzeBtn-upload').addEventListener('click', () => {
 </body>
 
 </html>
-
 
 
 """
