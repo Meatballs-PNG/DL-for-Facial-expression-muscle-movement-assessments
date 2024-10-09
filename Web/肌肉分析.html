@@ -15,7 +15,7 @@
 
     /* 頁面尺寸變換時,改變排版 */
     @media (max-width: 768px) {
-        .a {
+        .container {
             flex-direction: column;
             gap: 30px;
             overflow-y: auto;
@@ -422,13 +422,76 @@
         filter: brightness(100%); /* 调整亮度的滤镜，数值可以根据需求调整 */
     }
 
-    /* 回傳結果-使用到肌肉文字排版 */
-    #result-mu-use {
-        display: inline-block; /* 保持 span 元素換行效果 */
-        width: 180px; /* 控制換行點 */
-        text-indent: 15px; /* 設置換行後的縮排 */
-        white-space: normal;
+    /* 容器-回傳結果-情緒 */
+    #emotion-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; /* 允許換行 */
+        gap: 15px;
+        width: 300px; /* 控制容器寬度 */
     }
+
+    /* 回傳結果-情緒 */
+    .expmessage {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 1s ease-out; /* 縮短過渡動畫至 0.2 秒 */
+    }
+
+    /* 回傳結果-情緒-訊息滑入效果 */
+    .expmessage.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 回傳結果-情緒-圖標 */
+    .expicon {        
+        margin-right: 10px;
+    }
+
+    /* 容器-回傳結果-肌肉 */
+    #mu-container {
+        display: flex;
+        flex-wrap: wrap; /* 允許換行 */
+        gap: 15px;
+        width: 300px; /* 控制容器寬度 */
+    }
+
+    /* 回傳結果-肌肉 */
+    .mumessage {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 1s ease-out; /* 縮短過渡動畫至 0.2 秒 */
+        width: calc(40%); /* 每條訊息寬度為 25% 減去間隔，以便顯示四條訊息一行 */
+    }
+
+    /* 回傳結果-肌肉-訊息滑入效果 */
+    .mumessage.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 回傳結果-肌肉-圖標 */
+    .muicon {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+
 </style>
 
 </head>
@@ -531,8 +594,10 @@
         <div class="result-container" id="result-exp-mu">
             <div class="text">伺服器回傳的結果</div>
             <div class="box" id="result-img"></div>
-	    <div class="text">情緒:<span id="resultBox"></span></div>
-	    <div class="text">使用到的肌肉部位:<span id="result-mu-use" ></span></div>
+	    <div class="text">情緒</div>
+	    <div id="emotion-container"></div>
+	    <div class="text">使用到的肌肉部位</div>
+	    <div id="mu-container"></div>
         </div>
     </div>
 
@@ -583,6 +648,89 @@
         window.location.href = 'https://1e1c-210-59-96-137.ngrok-free.app/web2'; 
       });
     });
+
+// 處理情緒結果函數 
+function createEmotionMessage(emotion) {
+    const expmessage = document.createElement('div');
+    expmessage.classList.add('expmessage');
+
+    const expicon = document.createElement('div');
+    expicon.classList.add('expicon');
+
+    // 根据情绪類别設置圖標樣式
+    let expiconHTML = ''; // 初始化圖標樣式
+    
+    switch (emotion) {
+        case 'happy':
+            expiconHTML = '<i class="bi bi-emoji-smile-fill" style="color: #c2b700;"></i>'; // 情緒快樂使用該圖標
+            break;
+        case 'angry':
+            expiconHTML = '<i class="bi bi-emoji-angry-fill" style="color: red;"></i>'; // 情緒生氣使用該圖標
+            break;
+        default:
+            expiconHTML = '<i class="bi bi-emoji-neutral-fill" style="color: gray;"></i>'; // 情緒無表情使用該圖標
+            break;
+    }
+    
+    // 将圖標添加到icon元素中
+    expicon.innerHTML = expiconHTML;
+
+    const exptext = document.createElement('div');
+    exptext.textContent = emotion; // 設定情绪類別文字
+
+    expmessage.appendChild(expicon);
+    expmessage.appendChild(exptext);
+
+    return expmessage;
+}
+
+// 顯示情緒結果函數
+function addEmotionMessages(emotion) {
+    const emotionContainer = document.getElementById('emotion-container');
+    emotionContainer.innerHTML = ''; // 清空容器中的旧消息
+
+    const emotionMessage = createEmotionMessage(emotion); // 创建带有情绪的消息
+    emotionContainer.appendChild(emotionMessage); // 将情绪消息添加到情绪容器中
+
+    // 添加滑入效果
+    setTimeout(() => {
+        emotionMessage.classList.add('visible');
+    }, 200);
+}
+
+// 處理每個肌肉的名稱和顏色函數
+function createmuMessage(muscle) {
+    const mumessage = document.createElement('div');
+    mumessage.classList.add('mumessage');
+
+    const muicon = document.createElement('div');
+    muicon.classList.add('muicon');
+    muicon.style.backgroundColor = muscle.color;  // 使用返回的肌肉色碼
+
+    const mutext = document.createElement('div');
+    mutext.textContent = muscle.name;  // 使用返回的肌肉名稱
+
+    mumessage.appendChild(muicon);
+    mumessage.appendChild(mutext);
+
+    return mumessage;
+}
+
+// 顯示肌肉使用部位與對應顏色函數
+function addmuMessages(muscles) {
+    const mucontainer = document.getElementById('mu-container');
+    mucontainer.innerHTML = '';  // 清空容器中的舊消息
+
+    muscles.forEach((muscle, index) => {
+        const mumessage = createmuMessage(muscle);  // 創建帶有名稱和顏色的消息
+        mucontainer.appendChild(mumessage);
+
+        // 使用 setTimeout 增加滑入效果
+        setTimeout(() => {
+            mumessage.classList.add('visible');
+        }, index * 200);
+    });
+}
 
         const AddSampleBtnCamera = document.getElementById("add-sample-btn-camera");
 	const AddSampleBtnUpload = document.getElementById("add-sample-btn-upload");
@@ -653,13 +801,23 @@ function captureAndSendImage() {
                 ResultImg.innerHTML = '';  // 清空 ResultImg 中的內容
                 ResultImg.appendChild(imgElement);  // 將圖像元素添加到 ResultImg 中
             }
-            // 處理返回的辨識結果
-               const predictionResult = data.result;
-               const resultBoxText = document.getElementById('resultBox');
-               resultBoxText.innerHTML = predictionResult;
-               const munResult = data.muresult;
-               const ResultMuUseText = document.getElementById('result-mu-use');
-               ResultMuUseText.innerHTML = munResult;
+              // 處理返回的辨識結果
+              const predictionResult = data.result;
+              const emotion = predictionResult; // 獲取情緒類別的地方
+              addEmotionMessages(emotion); // 調用 addEmotionMessages 函數
+
+              // 處理返回的肌肉名稱和顏色
+              const muNames = data.muresult ? data.muresult.split(', ') : []; // 檢查 muresult 是否存在
+              const muColors = data.mu_colors ? data.mu_colors.split(', ') : []; // 檢查 mu_colors 是否存在
+
+              // 將名稱和顏色組合為對象，確保長度匹配
+              const muscles = muNames.map((name, index) => ({
+              name: name,
+              color: muColors[index] || "#000000" // 如果顏色未定義，使用預設顏色
+              }));
+
+              // 傳遞肌肉數據到 addmuMessages 函數
+              addmuMessages(muscles);
         }) 
         .catch(error => console.error('Error receiving image:', error));
 
@@ -724,13 +882,23 @@ document.getElementById('analyzeBtn-upload').addEventListener('click', () => {
                             ResultImg.appendChild(imgElement);  // 將圖像元素添加到 ResultImg 中
                         }
 
-                        // 處理返回的辨識結果
-                        const predictionResult = data.result;
-                        const resultBoxText = document.getElementById('resultBox');
-                        resultBoxText.innerHTML = predictionResult;
-                        const munResult = data.muresult;
-                        const ResultMuUseText = document.getElementById('result-mu-use');
-                        ResultMuUseText.innerHTML = munResult;
+                           // 處理返回的辨識結果
+                           const predictionResult = data.result;
+                           const emotion = predictionResult; // 獲取情緒類別的地方
+                           addEmotionMessages(emotion); // 調用 addEmotionMessages 函數
+
+                           // 處理返回的肌肉名稱和顏色
+                           const muNames = data.muresult ? data.muresult.split(', ') : []; // 檢查 muresult 是否存在
+                           const muColors = data.mu_colors ? data.mu_colors.split(', ') : []; // 檢查 mu_colors 是否存在
+
+                           // 將名稱和顏色組合為對象，確保長度匹配
+                           const muscles = muNames.map((name, index) => ({
+                           name: name,
+                           color: muColors[index] || "#000000" // 如果顏色未定義，使用預設顏色
+                           }));
+
+                           // 傳遞肌肉數據到 addmuMessages 函數
+                           addmuMessages(muscles);
                     })
                     .catch(error => console.error('Error receiving image:', error));
 
