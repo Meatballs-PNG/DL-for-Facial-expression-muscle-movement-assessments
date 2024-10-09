@@ -120,48 +120,71 @@ def connect_points(image, coordinates, color):
     for i in range(len(coordinates) - 1):
         cv2.line(image, coordinates[i], coordinates[i + 1], color, 2)
 
-# 定義肌肉部位座標計算函數
 def detect_face_landmarks(image, results, feature_points_keys):
-    # 從JSON檔載入自訂特徵點資訊和所占比例
+    # 从JSON文件加载自定义特征点信息和所占比例
     with open(json_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-        if results.multi_face_landmarks:
-            for feature_points_key in feature_points_keys:
-                # 創建列表儲存計算後的座標
-                final_coordinates = []
+    # 从mu_to_na中获取颜色映射
+    mu_color_mapping = {mu["mu_no"]: mu["mu_color"] for mu in data["mu_to_na"]}
 
-                for item in data[feature_points_key]:
-                    scale_factors = [float(factor) for factor in item["p"].split()]  # 比例因子列表
-                    feature_point_indices = [int(idx) for idx in item["v"].split()]  # 特徵點編號列表
+    if results.multi_face_landmarks:
+        for feature_points_key in feature_points_keys:
+            # 创建列表存储计算后的坐标
+            final_coordinates = []
 
-                    # 初始化變數
-                    summed_x = 0
-                    summed_y = 0
-                    summed_z = 0
+            # 检查是否存在特征点数据
+            if feature_points_key not in data:
+                print(f"No feature points found for key: {feature_points_key}")
+                continue  # 如果没有特征点，跳过当前键
 
-                    # 將指定特徵點之相對座標乘以比例因子後計算出所需肌肉部位座標
-                    for idx, factor in zip(feature_point_indices, scale_factors):
+            for item in data[feature_points_key]:
+                # 确保包含比例因子和特征点编号
+                if "p" not in item or "v" not in item:
+                    print(f"Missing data for item: {item}")
+                    continue  # 如果数据不完整，跳过该项
+
+                scale_factors = [float(factor) for factor in item["p"].split()]  # 比例因子列表
+                feature_point_indices = [int(idx) for idx in item["v"].split()]  # 特征点编号列表
+
+                # 初始化变量
+                summed_x = 0
+                summed_y = 0
+                summed_z = 0
+
+                # 将指定特征点之相对坐标乘以比例因子后计算出所需肌肉部位坐标
+                for idx, factor in zip(feature_point_indices, scale_factors):
+                    # 确保索引在有效范围内
+                    if idx < len(results.multi_face_landmarks[0].landmark):
                         landmark = results.multi_face_landmarks[0].landmark[idx]
                         x, y, z = landmark.x, landmark.y, landmark.z
-                        x_image = int(x * image.shape[1] * factor)  # 轉換為圖像座標系統的 x 座標並乘上比例因子
-                        y_image = int(y * image.shape[0] * factor)  # 轉換為圖像座標系統的 y 座標並乘上比例因子
-                        z_image = int(z * factor)  # z 座標乘上比例因子
+                        x_image = int(x * image.shape[1] * factor)  # 转换为图像坐标系的 x 坐标并乘上比例因子
+                        y_image = int(y * image.shape[0] * factor)  # 转换为图像坐标系的 y 坐标并乘上比例因子
+                        z_image = int(z * factor)  # z 坐标乘上比例因子
                         summed_x += x_image
                         summed_y += y_image
                         summed_z += z_image
 
-                    # 將最終座標儲存到列表中
+                # 将最终坐标保存到列表中
+                if summed_x != 0 and summed_y != 0:  # 确保坐标有效
                     final_coordinates.append((summed_x, summed_y))
 
-                # 使列表中的最後一個特徵點與第一個特徵點重合
+            # 使列表中的最后一个特征点与第一个特征点重合
+            if final_coordinates:
                 final_coordinates.append(final_coordinates[0])
-                # 使用隨機色彩連線
-                color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-                # 呼叫連線函數
-                connect_points(image, final_coordinates, color)
+
+                # 根据feature_points_key获取颜色
+                color = mu_color_mapping.get(feature_points_key, "#ffffff")  # 默认颜色为白色
+
+                # 转换颜色为元组格式（B, G, R）
+                color_tuple = tuple(int(color[i:i+2], 16) for i in (1, 3, 5))[::-1]
+
+                # 调用连线函数
+                connect_points(image, final_coordinates, color_tuple)
 
     return image
+
+
 
 @app.post("/emotion_recognition")
 async def emotion_recognition(file: UploadFile = File(...), model_label: str = Form(...)):
@@ -197,27 +220,53 @@ async def emotion_recognition(file: UploadFile = File(...), model_label: str = F
         # 解碼預測結果
         predicted_class = np.argmax(predictions)
         
-        # 根據預測結果處理圖像
-        if predicted_class == 0:
-            # 處理並顯示m1部位
-            processed_image = detect_face_landmarks(original_img, results, ['m2','m4','m7','m17','m21'])
-            emotion_result = '生氣'
-            mu_result = '降眉肌、皺眉肌、眼輪匝肌、口輪匝肌、頦肌'
-        elif predicted_class == 1:
-            # 處理並顯示m2和m3部位
-            processed_image = detect_face_landmarks(original_img, results, ['m7','m12'])
-            emotion_result = '快樂'
-            mu_result = '眼輪匝肌、顴大肌'
-        elif predicted_class == 2:
+        # 讀取 JSON 資料
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # 查詢表情對應的AU和MU 
+        exp_data = None
+        for exp in data['exp_to_au']:
+            if str(predicted_class) == str(exp.get('exp_num')):  # 對應表情代碼
+                exp_data = exp
+                break
+        
+        if exp_data:
+            emotion_result = exp_data.get('exp', '未知表情')  # 取得表情名稱
+            au_list = exp_data.get('au_no', '').split()  # 將 AU 字符串分割為列表
+            
+            mu_list = []
+            mu_names = []
+            mu_colors = []
+            for au in au_list:
+                for au_data in data['au_to_mu']:
+                    if au_data['au_no'] == au:  # 查找對應的 AU
+                        mus = au_data['mu_no'].split()  # 將 mu_no 分割為多個肌肉編號
+                        mu_list.extend(mus)
+                        for mu in mus:
+                            for mu_data in data['mu_to_na']:
+                                if mu_data['mu_no'] == mu:  # 查找對應的 MU
+                                    mu_names.append(mu_data['mu_na'])
+                                    mu_colors.append(mu_data['mu_color'])
+                                    break
+            
+            # 使用查詢到的MU執行檢測
+            processed_image = detect_face_landmarks(original_img, results, mu_list)
+            mu_result = ', '.join(mu_names)  # 將MU名稱列表拼接成字串
+            mu_color_result = ', '.join(mu_colors)  # 返回對應的顏色
+            
+        else:
+            emotion_result = "未知表情"
             processed_image = original_img
-            emotion_result = '無表情'
-            mu_result = '無'
+            mu_result = ""
+            mu_color_result = ""
+        
         # 將處理後的圖像編碼為Base64格式
         _, img_encoded = cv2.imencode('.jpg', processed_image)
         img_base64 = base64.b64encode(img_encoded).decode()  # 獲取圖像的Base64編碼
         
         # 返回圖像和結果
-        return {"image": img_base64, "result": emotion_result, "muresult": mu_result}
+        return {"image": img_base64, "result": emotion_result, "muresult": mu_result, "mu_colors": mu_color_result}
         
 @app.get("/web1", response_class=HTMLResponse)
 async def web1():
@@ -410,7 +459,7 @@ async def web2():
 
     /* 頁面尺寸變換時,改變排版 */
     @media (max-width: 768px) {
-        .a {
+        .container {
             flex-direction: column;
             gap: 30px;
             overflow-y: auto;
@@ -611,7 +660,7 @@ async def web2():
     }
 
     /* 視訊框內的圓框濾鏡 */
-    .face filter {
+    .facefilter {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -817,13 +866,76 @@ async def web2():
         filter: brightness(100%); /* 调整亮度的滤镜，数值可以根据需求调整 */
     }
 
-    /* 回傳結果-使用到肌肉文字排版 */
-    #result-mu-use {
-        display: inline-block; /* 保持 span 元素換行效果 */
-        width: 180px; /* 控制換行點 */
-        text-indent: 15px; /* 設置換行後的縮排 */
-        white-space: normal;
+    /* 容器-回傳結果-情緒 */
+    #emotion-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; /* 允許換行 */
+        gap: 15px;
+        width: 300px; /* 控制容器寬度 */
     }
+
+    /* 回傳結果-情緒 */
+    .expmessage {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 1s ease-out; /* 縮短過渡動畫至 0.2 秒 */
+    }
+
+    /* 回傳結果-情緒-訊息滑入效果 */
+    .expmessage.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 回傳結果-情緒-圖標 */
+    .expicon {        
+        margin-right: 10px;
+    }
+
+    /* 容器-回傳結果-肌肉 */
+    #mu-container {
+        display: flex;
+        flex-wrap: wrap; /* 允許換行 */
+        gap: 15px;
+        width: 300px; /* 控制容器寬度 */
+    }
+
+    /* 回傳結果-肌肉 */
+    .mumessage {
+        display: flex;
+        align-items: center;
+        background-color: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 1s ease-out; /* 縮短過渡動畫至 0.2 秒 */
+        width: calc(40%); /* 每條訊息寬度為 25% 減去間隔，以便顯示四條訊息一行 */
+    }
+
+    /* 回傳結果-肌肉-訊息滑入效果 */
+    .mumessage.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 回傳結果-肌肉-圖標 */
+    .muicon {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+
 </style>
 
 </head>
@@ -903,9 +1015,9 @@ async def web2():
         <!-- 攝像頭功能頁 -->
         <div class="add-sample-container" id="add-sample-camera">
             <button class="close-button" id="close-btn-camera"><i class="bi bi-x-circle-fill" style="transform: scale(1.5); color: red;"></i></button>
-            <div class="text">請將臉部對齊圓圈。</div>
-            <div class="box"> <video id="video" autoplay="true" playsinline></video>
-                <div class="face filter"></div></div>
+            <div class="text">請將臉部對齊圓圈。</div>	    
+            <div class="box"> <video id="video" autoplay="true" playsinline></video> 
+	    <div class="facefilter"></div></div>              
             <button class="norm-button" id="analyzeBtn-camera">開始分析</button>
         </div>
 
@@ -926,8 +1038,10 @@ async def web2():
         <div class="result-container" id="result-exp-mu">
             <div class="text">伺服器回傳的結果</div>
             <div class="box" id="result-img"></div>
-	    <div class="text">情緒:<span id="resultBox"></span></div>
-	    <div class="text">使用到的肌肉部位:<span id="result-mu-use" ></span></div>
+	    <div class="text">情緒</div>
+	    <div id="emotion-container"></div>
+	    <div class="text">使用到的肌肉部位</div>
+	    <div id="mu-container"></div>
         </div>
     </div>
 
@@ -942,7 +1056,7 @@ async def web2():
     </div>
 </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
       const sidebarBtn = document.getElementById('sidebarBtn');
       const settingBtn = document.getElementById('settingBtn');
       const sidebar = document.getElementById('sidebar');
@@ -978,6 +1092,89 @@ async def web2():
         window.location.href = 'https://1e1c-210-59-96-137.ngrok-free.app/web2'; 
       });
     });
+
+// 處理情緒結果函數 
+function createEmotionMessage(emotion) {
+    const expmessage = document.createElement('div');
+    expmessage.classList.add('expmessage');
+
+    const expicon = document.createElement('div');
+    expicon.classList.add('expicon');
+
+    // 根据情绪類别設置圖標樣式
+    let expiconHTML = ''; // 初始化圖標樣式
+    
+    switch (emotion) {
+        case 'happy':
+            expiconHTML = '<i class="bi bi-emoji-smile-fill" style="color: #c2b700;"></i>'; // 情緒快樂使用該圖標
+            break;
+        case 'angry':
+            expiconHTML = '<i class="bi bi-emoji-angry-fill" style="color: red;"></i>'; // 情緒生氣使用該圖標
+            break;
+        default:
+            expiconHTML = '<i class="bi bi-emoji-neutral-fill" style="color: gray;"></i>'; // 情緒無表情使用該圖標
+            break;
+    }
+    
+    // 将圖標添加到icon元素中
+    expicon.innerHTML = expiconHTML;
+
+    const exptext = document.createElement('div');
+    exptext.textContent = emotion; // 設定情绪類別文字
+
+    expmessage.appendChild(expicon);
+    expmessage.appendChild(exptext);
+
+    return expmessage;
+}
+
+// 顯示情緒結果函數
+function addEmotionMessages(emotion) {
+    const emotionContainer = document.getElementById('emotion-container');
+    emotionContainer.innerHTML = ''; // 清空容器中的旧消息
+
+    const emotionMessage = createEmotionMessage(emotion); // 创建带有情绪的消息
+    emotionContainer.appendChild(emotionMessage); // 将情绪消息添加到情绪容器中
+
+    // 添加滑入效果
+    setTimeout(() => {
+        emotionMessage.classList.add('visible');
+    }, 200);
+}
+
+// 處理每個肌肉的名稱和顏色函數
+function createmuMessage(muscle) {
+    const mumessage = document.createElement('div');
+    mumessage.classList.add('mumessage');
+
+    const muicon = document.createElement('div');
+    muicon.classList.add('muicon');
+    muicon.style.backgroundColor = muscle.color;  // 使用返回的肌肉色碼
+
+    const mutext = document.createElement('div');
+    mutext.textContent = muscle.name;  // 使用返回的肌肉名稱
+
+    mumessage.appendChild(muicon);
+    mumessage.appendChild(mutext);
+
+    return mumessage;
+}
+
+// 顯示肌肉使用部位與對應顏色函數
+function addmuMessages(muscles) {
+    const mucontainer = document.getElementById('mu-container');
+    mucontainer.innerHTML = '';  // 清空容器中的舊消息
+
+    muscles.forEach((muscle, index) => {
+        const mumessage = createmuMessage(muscle);  // 創建帶有名稱和顏色的消息
+        mucontainer.appendChild(mumessage);
+
+        // 使用 setTimeout 增加滑入效果
+        setTimeout(() => {
+            mumessage.classList.add('visible');
+        }, index * 200);
+    });
+}
 
         const AddSampleBtnCamera = document.getElementById("add-sample-btn-camera");
 	const AddSampleBtnUpload = document.getElementById("add-sample-btn-upload");
@@ -1048,13 +1245,23 @@ function captureAndSendImage() {
                 ResultImg.innerHTML = '';  // 清空 ResultImg 中的內容
                 ResultImg.appendChild(imgElement);  // 將圖像元素添加到 ResultImg 中
             }
-            // 處理返回的辨識結果
-               const predictionResult = data.result;
-               const resultBoxText = document.getElementById('resultBox');
-               resultBoxText.innerHTML = predictionResult;
-               const munResult = data.muresult;
-               const ResultMuUseText = document.getElementById('result-mu-use');
-               ResultMuUseText.innerHTML = munResult;
+              // 處理返回的辨識結果
+              const predictionResult = data.result;
+              const emotion = predictionResult; // 獲取情緒類別的地方
+              addEmotionMessages(emotion); // 調用 addEmotionMessages 函數
+
+              // 處理返回的肌肉名稱和顏色
+              const muNames = data.muresult ? data.muresult.split(', ') : []; // 檢查 muresult 是否存在
+              const muColors = data.mu_colors ? data.mu_colors.split(', ') : []; // 檢查 mu_colors 是否存在
+
+              // 將名稱和顏色組合為對象，確保長度匹配
+              const muscles = muNames.map((name, index) => ({
+              name: name,
+              color: muColors[index] || "#000000" // 如果顏色未定義，使用預設顏色
+              }));
+
+              // 傳遞肌肉數據到 addmuMessages 函數
+              addmuMessages(muscles);
         }) 
         .catch(error => console.error('Error receiving image:', error));
 
@@ -1119,13 +1326,23 @@ document.getElementById('analyzeBtn-upload').addEventListener('click', () => {
                             ResultImg.appendChild(imgElement);  // 將圖像元素添加到 ResultImg 中
                         }
 
-                        // 處理返回的辨識結果
-                        const predictionResult = data.result;
-                        const resultBoxText = document.getElementById('resultBox');
-                        resultBoxText.innerHTML = predictionResult;
-                        const munResult = data.muresult;
-                        const ResultMuUseText = document.getElementById('result-mu-use');
-                        ResultMuUseText.innerHTML = munResult;
+                           // 處理返回的辨識結果
+                           const predictionResult = data.result;
+                           const emotion = predictionResult; // 獲取情緒類別的地方
+                           addEmotionMessages(emotion); // 調用 addEmotionMessages 函數
+
+                           // 處理返回的肌肉名稱和顏色
+                           const muNames = data.muresult ? data.muresult.split(', ') : []; // 檢查 muresult 是否存在
+                           const muColors = data.mu_colors ? data.mu_colors.split(', ') : []; // 檢查 mu_colors 是否存在
+
+                           // 將名稱和顏色組合為對象，確保長度匹配
+                           const muscles = muNames.map((name, index) => ({
+                           name: name,
+                           color: muColors[index] || "#000000" // 如果顏色未定義，使用預設顏色
+                           }));
+
+                           // 傳遞肌肉數據到 addmuMessages 函數
+                           addmuMessages(muscles);
                     })
                     .catch(error => console.error('Error receiving image:', error));
 
