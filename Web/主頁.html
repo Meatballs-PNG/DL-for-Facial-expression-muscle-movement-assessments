@@ -7,17 +7,24 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Bootstrap 圖標CSS連結 -->
   <style>
     body {
-      background-color:#F4F4F4;
+      margin: 0; /* 去掉页面默认的外边距 */
+      padding: 0; /* 去掉页面默认的内边距 */
+      background-color: #f0f0f0;
+
     }
 
     /* 容器_導覽列樣式 */
     .navbar-container {
       display: flex;
+      position: fixed;
       align-items: center; /* 水平置中容器內元素 */
       justify-content: space-between; /* 元素分別靠最左和最右端對齊 */
+      width: 100%;
+      height: 50px;
       border-bottom: 1px solid #ccc; /* 底線 */
-      padding-bottom: 10px; /* 容器內元素與容器間的邊距 */
-      margin-bottom: 20px; /* 容器的外邊距 */
+      padding: 0; /* 容器內元素與容器間的邊距 */    
+      background-color: #f0f0f0;
+      z-index: 5;  /* 确保导航栏在页面其他元素的上方 */
     }
     
      /* 導覽列樣式 */
@@ -29,19 +36,19 @@
       height: 45px;
       border-radius: 50%;
       border: none;
+      background-color: transparent;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      background-color: #F4F4F4;
     }
 
     /* 導覽列-按鈕觸碰變色 */
     .navbar-btn:hover {
-      background-color: #f0f0f0;
+      background-color: #e7e6e6;
     }
 
     /* 導覽列-按鈕點擊變色 */
     .navbar-btn:active {
-      background-color: #808080;
+      background-color: #a8a7a7;
     }
 
     /* 左側選單樣式 */
@@ -51,11 +58,11 @@
       left: -400px; /* 將選單放置頁面外 */
       width: 200px;
       height: 100vh;
-      background-color: #ede9e8;
+      background-color: #f0f0f0;
       transition: left 0.3s ease; /* 實現選單滑入效果 */
       padding: 20px;
       box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-      z-index: 2;
+      z-index: 6;
     }
 
     /* 左側選單-選項容器樣式 */
@@ -81,9 +88,10 @@
       height: 40px;
       border: none;
       border-radius: 12px;
-      background-color: #ede9e8;
-      color: #9e9092;
-      gap: 10px;
+      background-color: #f0f0f0;
+      color: #ac9599;
+      gap: 5px;
+      padding: 20px;
       margin-bottom: 10px;
       cursor: pointer;
       transition: background-color 0.3s ease, color 0.3s ease;     
@@ -96,8 +104,10 @@
 
     /* 左側選單-選項按鈕點擊變色 */
     .sidebar-btn:active {
-      background-color: #808080;
+      background-color: #d19494;
       color: #ffffff;
+    }
+
     }
   </style>
 </head>
@@ -105,10 +115,11 @@
 <body>
   <!-- 導覽列 -->
   <div class="navbar-container">
+    <div class="navbar-container">
     <!-- 按鈕_顯示左側選單 -->
-    <button class="navbar-btn" id="sidebarBtn"><i class="bi bi-list" style="transform: scale(1.5);"></i></button>     
+    <button class="navbar-btn" id="sidebarBtn"><i class="bi bi-list" style="transform: scale(1.5); color: #45485f;"></i></button>     
     <!-- 按鈕_顯示設定選單 -->
-    <button class="navbar-btn" id="settingBtn"><i class="bi bi-gear" style="transform: scale(1.5);"></i></button>   
+    <button class="navbar-btn" id="settingBtn"><i class="bi bi-gear" style="transform: scale(1.5); color: #45485f;"></i></button>   
   </div>
 
   <!-- 左側選單 -->
