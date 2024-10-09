@@ -123,156 +123,176 @@
     ],
     "exp_to_au": [
         {
-            "exp": "happy",
-            "au_no": "au6 au12",
-            "Unnamed: 2": null,
-            "Unnamed: 3": null,
-            "Unnamed: 4": null
-        },
-        {
-            "exp": "sad",
-            "au_no": "au1 au4 au15",
-            "Unnamed: 2": "au6 a15",
-            "Unnamed: 3": null,
-            "Unnamed: 4": null
-        },
-        {
+            "exp_num": 0,
             "exp": "angry",
-            "au_no": "au4 au5 au7 au17 au23",
-            "Unnamed: 2": "au4 au5 au7 au10 au23 au25",
-            "Unnamed: 3": null,
-            "Unnamed: 4": null
+            "au_no": "au4 au5 au7 au17 au23"
         },
         {
+            "exp_num": 1,
+            "exp": "happy",
+            "au_no": "au6 au12"
+        },
+        {
+            "exp_num": 2,
+            "exp": "neutral",
+            "au_no": "num"
+        },
+        {
+            "exp_num": 3,
+            "exp": "sad",
+            "au_no": "au1 au4 au15"
+        },
+        {
+            "exp_num": 4,
             "exp": "disgust",
-            "au_no": "au9",
-            "Unnamed: 2": "au9 au16 au15",
-            "Unnamed: 3": "au9 au17",
-            "Unnamed: 4": "au10 au16 au25"
+            "au_no": "au9"
         },
         {
+            "exp_num": 5,
             "exp": "fear",
-            "au_no": "au1 au2 au4 au5 au20 au25",
-            "Unnamed: 2": "au1 au2 au4 au5 au25",
-            "Unnamed: 3": null,
-            "Unnamed: 4": null
+            "au_no": "au1 au2 au4 au5 au20 au25"
         },
         {
+            "exp_num": 6,
             "exp": "surprise",
-            "au_no": "au1 au2 au5 au26/27",
-            "Unnamed: 2": null,
-            "Unnamed: 3": null,
-            "Unnamed: 4": null
+            "au_no": "au1 au2 au5 au26/27"
         }
     ],
     "mu_to_na": [
         {
             "mu_no": "m1",
-            "mu_na": "額肌"
+            "mu_na": "額肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m2",
-            "mu_na": "降眉肌"
+            "mu_na": "降眉肌",
+            "mu_color": "#1eb428"
         },
         {
             "mu_no": "m3",
-            "mu_na": "降眉間肌"
+            "mu_na": "降眉間肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m4",
-            "mu_na": "皺眉肌"
+            "mu_na": "皺眉肌",
+            "mu_color": "#de7f10"
         },
         {
             "mu_no": "m5",
-            "mu_na": "上瞼提肌(?)"
+            "mu_na": "上瞼提肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m6",
-            "mu_na": "上瞼板肌(?)"
+            "mu_na": "上瞼板肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m7",
-            "mu_na": "眼輪匝肌"
+            "mu_na": "眼輪匝肌",
+            "mu_color": "#e33434"
         },
         {
             "mu_no": "m8",
-            "mu_na": "提上唇鼻翼肌(?)"
+            "mu_na": "提上唇鼻翼肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m9",
-            "mu_na": "上唇提肌(?)"
+            "mu_na": "上唇提肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m10",
-            "mu_na": "眶下肌(?)"
+            "mu_na": "眶下肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m11",
-            "mu_na": "顴小肌"
+            "mu_na": "顴小肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m12",
-            "mu_na": "顴大肌"
+            "mu_na": "顴大肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m13",
-            "mu_na": "提口角肌(?)"
+            "mu_na": "提口角肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m14",
-            "mu_na": "頰肌(?)"
+            "mu_na": "頰肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m15",
-            "mu_na": "降口角肌"
+            "mu_na": "降口角肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m16",
-            "mu_na": "降下唇肌(?)"
+            "mu_na": "降下唇肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m17",
-            "mu_na": "頦肌"
+            "mu_na": "頦肌",
+            "mu_color": "#127e88"
         },
         {
             "mu_no": "m18",
-            "mu_na": "上唇切和下唇切(位於牙齒內部 無法呈現)(?)"
+            "mu_na": "上唇切和下唇切",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m19",
-            "mu_na": "頸闊肌(?)"
+            "mu_na": "頸闊肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m20",
-            "mu_na": "笑肌(?)"
+            "mu_na": "笑肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m21",
-            "mu_na": "口輪匝肌"
+            "mu_na": "口輪匝肌",
+            "mu_color": "#1e0cc9"
         },
         {
             "mu_no": "m22",
-            "mu_na": "咬肌[分內部與淺部](?)"
+            "mu_na": "咬肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m23",
-            "mu_na": "顳肌(?)"
+            "mu_na": "顳肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m24",
-            "mu_na": "翼內肌(?)"
+            "mu_na": "翼內肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m25",
-            "mu_na": "翼外肌[上頭與下頭,不確定](?)"
+            "mu_na": "翼外肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m26",
-            "mu_na": "二腹肌[有拉扯到頸部相關位置](?)"
+            "mu_na": "二腹肌",
+            "mu_color": "#ffffff"
         },
         {
             "mu_no": "m27",
-            "mu_na": "上眼提肌(?)"
+            "mu_na": "上眼提肌",
+            "mu_color": "#ffffff"
         }
     ],
     "m1": [
