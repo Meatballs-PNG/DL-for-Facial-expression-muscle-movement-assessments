@@ -1,5 +1,46 @@
 {
+    "exp_to_au": [
+        {
+            "exp_num": 0,
+            "exp": "angry",
+            "au_no": "au4 au5 au7 au17 au23"
+        },
+        {
+            "exp_num": 1,
+            "exp": "happy",
+            "au_no": "au6 au12"
+        },
+        {
+            "exp_num": 2,
+            "exp": "neutral",
+            "au_no": "aux"
+        },
+        {
+            "exp_num": 3,
+            "exp": "sad",
+            "au_no": "au1 au4 au15"
+        },
+        {
+            "exp_num": 4,
+            "exp": "disgust",
+            "au_no": "au9"
+        },
+        {
+            "exp_num": 5,
+            "exp": "fear",
+            "au_no": "au1 au2 au4 au5 au20 au25"
+        },
+        {
+            "exp_num": 6,
+            "exp": "surprise",
+            "au_no": "au1 au2 au5 au26/27"
+        }
+    ],
     "au_to_mu": [
+        {
+            "au_no": "aux",
+            "mu_no": "mx"
+        },
         {
             "au_no": "au1",
             "mu_no": "m1"
@@ -121,44 +162,12 @@
             "mu_no": "m7 m5"
         }
     ],
-    "exp_to_au": [
-        {
-            "exp_num": 0,
-            "exp": "angry",
-            "au_no": "au4 au5 au7 au17 au23"
-        },
-        {
-            "exp_num": 1,
-            "exp": "happy",
-            "au_no": "au6 au12"
-        },
-        {
-            "exp_num": 2,
-            "exp": "neutral",
-            "au_no": "num"
-        },
-        {
-            "exp_num": 3,
-            "exp": "sad",
-            "au_no": "au1 au4 au15"
-        },
-        {
-            "exp_num": 4,
-            "exp": "disgust",
-            "au_no": "au9"
-        },
-        {
-            "exp_num": 5,
-            "exp": "fear",
-            "au_no": "au1 au2 au4 au5 au20 au25"
-        },
-        {
-            "exp_num": 6,
-            "exp": "surprise",
-            "au_no": "au1 au2 au5 au26/27"
-        }
-    ],
     "mu_to_na": [
+        {
+            "mu_no": "mx",
+            "mu_na": "無",
+            "mu_color": "gray"
+        },
         {
             "mu_no": "m1",
             "mu_na": "額肌",
