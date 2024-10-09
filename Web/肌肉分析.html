@@ -553,6 +553,41 @@
         margin-right: 10px;
     }
 
+    /* 容器_載入中濾鏡 */
+    #loading {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    /* 載入中濾鏡-圓圈 */
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #ccc;
+        border-top: 5px solid #333;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 10px;
+    
+    }
+
+    /* 載入中濾鏡-圓圈自轉動畫 */
+    @keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    }
 
 </style>
 
@@ -661,6 +696,10 @@
             <div class="text">伺服器回傳的結果</div>
             <div class="box" id="result-img"></div>
 	    <div class="text">情緒</div>
+	       <div id="loading" style="display:none;">
+	         <div class="spinner"></div>
+  		 <p>Loading...</p>
+	       </div>
 	    <div id="emotion-container"></div>
 	    <div class="text">使用到的肌肉部位</div>
 	    <div id="mu-container"></div>
@@ -814,30 +853,45 @@ function addmuMessages(muscles) {
 	const UploadBtn = document.getElementById('upload-btn');
 	const fileInput = document.getElementById('fileInput');
 
+// 變數來追蹤攝像頭是否連接成功
+let isCameraConnected = false;
+
 // 獲取攝像頭影像並顯示在 video 元素中
 navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
         const video = document.getElementById('video'); // 確保 video 元素存在
         video.srcObject = stream;
         video.play();
-     })
+        isCameraConnected = true; // 攝像頭連接成功
+    })
     .catch(err => {
         console.error('Error accessing the camera:', err);
+        isCameraConnected = false; // 攝像頭連接失敗
     });
 
 // 監聽攝像頭頁面 "分析" 按鈕的點擊事件
-document.getElementById('analyzeBtn-camera').addEventListener('click', captureAndSendImage);
+document.getElementById('analyzeBtn-camera').addEventListener('click', () => {
+    if (!isCameraConnected) {
+        alert('請先連接攝像頭！'); // 攝像頭未連接，顯示提示訊息
+        return; // 阻止事件繼續觸發
+    }
+    captureAndSendImage(); // 攝像頭已連接，繼續進行分析
+});
 
 // 將攝像頭影像發送到伺服器
 function captureAndSendImage() {
     const video = document.getElementById('video');
     const canvas = document.createElement('canvas');
+    const loadingElement = document.getElementById('loading'); // 取得 loading 元素
     const size = Math.min(video.videoWidth, video.videoHeight); // 截取video的尺寸
     canvas.width = size;
     canvas.height = size; 
     const ctx = canvas.getContext('2d');
     const x = (video.videoWidth - size) / 2; // 計算截取的起點坐標
     const y = (video.videoHeight - size) / 2;
+
+    // 顯示 loading 動畫
+    loadingElement.style.display = 'flex'; 
 
     ctx.drawImage(video, x, y, size, size, 0, 0, size, size); // 繪製截取的部分到video
 
@@ -867,41 +921,49 @@ function captureAndSendImage() {
                 ResultImg.innerHTML = '';  // 清空 ResultImg 中的內容
                 ResultImg.appendChild(imgElement);  // 將圖像元素添加到 ResultImg 中
             }
-              // 處理返回的辨識結果
-              const predictionResult = data.result;
-              const emotion = predictionResult; // 獲取情緒類別的地方
-              addEmotionMessages(emotion); // 調用 addEmotionMessages 函數
+            
+            // 處理返回的辨識結果
+            const predictionResult = data.result;
+            const emotion = predictionResult; // 獲取情緒類別的地方
+            addEmotionMessages(emotion); // 調用 addEmotionMessages 函數
 
-              // 處理返回的肌肉名稱和顏色
-              const muNames = data.muresult ? data.muresult.split(', ') : []; // 檢查 muresult 是否存在
-              const muColors = data.mu_colors ? data.mu_colors.split(', ') : []; // 檢查 mu_colors 是否存在
+            // 處理返回的肌肉名稱和顏色
+            const muNames = data.muresult ? data.muresult.split(', ') : []; // 檢查 muresult 是否存在
+            const muColors = data.mu_colors ? data.mu_colors.split(', ') : []; // 檢查 mu_colors 是否存在
 
-              // 將名稱和顏色組合為對象，確保長度匹配
-              const muscles = muNames.map((name, index) => ({
-              name: name,
-              color: muColors[index] || "#000000" // 如果顏色未定義，使用預設顏色
-              }));
+            // 將名稱和顏色組合為對象，確保長度匹配
+            const muscles = muNames.map((name, index) => ({
+                name: name,
+                color: muColors[index] || "#000000" // 如果顏色未定義，使用預設顏色
+            }));
 
-              // 傳遞肌肉數據到 addmuMessages 函數
-              addmuMessages(muscles);
+            // 傳遞肌肉數據到 addmuMessages 函數
+            addmuMessages(muscles);
+
+            // 隱藏 loading 動畫
+            loadingElement.style.display = 'none'; 
         }) 
-        .catch(error => console.error('Error receiving image:', error));
+        .catch(error => {
+            console.error('Error receiving image:', error);
+            loadingElement.style.display = 'none'; // 發生錯誤時隱藏 loading 動畫
+        });
 
     }, 'image/jpeg'); // 修改圖像格式為 JPEG
 }
 
-
-// 監聽上傳影像頁面 "分析" 按鈕的點擊事件
+// 監聽上傳頁面 "分析" 按鈕的點擊事件
 document.getElementById('analyzeBtn-upload').addEventListener('click', () => {
     const UploadSamplePreviewBox = document.getElementById('UploadSamplePreview');
     const hiddenFileInput = document.getElementById('hiddenFileInput');
     const uploadedImage = hiddenFileInput.files[0];
+    const loadingElement = document.getElementById('loading'); // 取得 loading 元素
     UploadSamplePreviewBox.innerHTML = '';
     // 獲取選擇的模型標籤
     const selectedModelLabel = document.getElementById('modelSelect').value;
 
     if (uploadedImage) {
-        // 上傳圖像的情境
+        loadingElement.style.display = 'flex';  // 顯示 loading 動畫
+
         const reader = new FileReader();
         reader.onload = function (event) {
             const img = new Image();
@@ -915,71 +977,65 @@ document.getElementById('analyzeBtn-upload').addEventListener('click', () => {
                 const x = (img.width - size) / 2; // 計算截取的起點坐標
                 const y = (img.height - size) / 2;
 
-                // 翻轉上傳圖像
-                ctx.save(); // 保存當前狀態
-                ctx.translate(size, 0); // 移動到 Canvas 的右側
-                ctx.scale(-1, 1); // 水平翻轉
-                ctx.drawImage(img, x, y, size, size, 0, 0, size, size); // 繪製截取的部分到預覽圖像區域上
-                ctx.restore(); // 恢復之前的狀態
+                ctx.save();
+                ctx.translate(size, 0); 
+                ctx.scale(-1, 1); 
+                ctx.drawImage(img, x, y, size, size, 0, 0, size, size); 
+                ctx.restore();
 
-                // 將圖像轉換為 Blob 物件
                 canvas.toBlob(blob => {
-                    // 創建表單數據物件
                     const formData = new FormData();
-                    formData.append('file', blob, 'uploaded_image.jpg'); // 圖像文件名，修改為 JPEG 格式
-                    formData.append('model_label', selectedModelLabel);  // 發送模型標籤
+                    formData.append('file', blob, 'uploaded_image.jpg'); 
+                    formData.append('model_label', selectedModelLabel);  
 
-                    // 發送 POST 請求
                     fetch("https://1e1c-210-59-96-137.ngrok-free.app/emotion_recognition", {
                         method: 'POST',
                         body: formData
                     })
                     .then(response => response.json())
                     .then(data => {
-                        // 清空 result-img 以防有舊的圖像
                         const ResultImg = document.getElementById('result-img');
                         ResultImg.innerHTML = '';
 
-                        // 處理返回的圖像數據
                         if (data.image) {
                             const imgBase64 = data.image;
                             const imgElement = document.createElement('img');
                             imgElement.src = 'data:image/jpeg;base64,' + imgBase64.replace(/"/g, '');
-                            ResultImg.appendChild(imgElement);  // 將圖像元素添加到 ResultImg 中
+                            ResultImg.appendChild(imgElement);  
                         }
 
-                           // 處理返回的辨識結果
-                           const predictionResult = data.result;
-                           const emotion = predictionResult; // 獲取情緒類別的地方
-                           addEmotionMessages(emotion); // 調用 addEmotionMessages 函數
+                        const predictionResult = data.result;
+                        const emotion = predictionResult;
+                        addEmotionMessages(emotion);
 
-                           // 處理返回的肌肉名稱和顏色
-                           const muNames = data.muresult ? data.muresult.split(', ') : []; // 檢查 muresult 是否存在
-                           const muColors = data.mu_colors ? data.mu_colors.split(', ') : []; // 檢查 mu_colors 是否存在
+                        const muNames = data.muresult ? data.muresult.split(', ') : []; 
+                        const muColors = data.mu_colors ? data.mu_colors.split(', ') : []; 
 
-                           // 將名稱和顏色組合為對象，確保長度匹配
-                           const muscles = muNames.map((name, index) => ({
-                           name: name,
-                           color: muColors[index] || "#000000" // 如果顏色未定義，使用預設顏色
-                           }));
+                        const muscles = muNames.map((name, index) => ({
+                            name: name,
+                            color: muColors[index] || "#000000"
+                        }));
 
-                           // 傳遞肌肉數據到 addmuMessages 函數
-                           addmuMessages(muscles);
+                        addmuMessages(muscles);
+
+                        loadingElement.style.display = 'none'; // 隱藏 loading 動畫
                     })
-                    .catch(error => console.error('Error receiving image:', error));
+                    .catch(error => {
+                        console.error('Error receiving image:', error);
+                        loadingElement.style.display = 'none'; // 隱藏 loading 動畫
+                    });
 
-                }, 'image/jpeg'); // 修改圖像格式為 JPEG
+                }, 'image/jpeg');
             };
         };
-        reader.readAsDataURL(uploadedImage); // 讀取上傳的圖像
+        reader.readAsDataURL(uploadedImage);
 
-        // 清空上傳的圖像檔案，這樣下次選擇相同的圖像時不會再被讀取
         hiddenFileInput.value = '';
     } else {
-        // 若無上傳的圖像，則顯示提示訊息
         alert('請先上傳圖像！');
-      }
+    }
 });
+
         // 當按下攝像頭添加樣本，顯示功能頁面
         AddSampleBtnCamera.addEventListener("click", () => {
             ModelSettingsBtn.style.display = "block";
