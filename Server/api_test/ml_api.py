@@ -280,17 +280,24 @@ async def web1():
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> <!-- Bootstrap 圖標CSS連結 -->
   <style>
     body {
-      background-color:#F4F4F4;
+      margin: 0; /* 去掉页面默认的外边距 */
+      padding: 0; /* 去掉页面默认的内边距 */
+      background-color: #f0f0f0;
+
     }
 
     /* 容器_導覽列樣式 */
     .navbar-container {
       display: flex;
+      position: fixed;
       align-items: center; /* 水平置中容器內元素 */
       justify-content: space-between; /* 元素分別靠最左和最右端對齊 */
+      width: 100%;
+      height: 50px;
       border-bottom: 1px solid #ccc; /* 底線 */
-      padding-bottom: 10px; /* 容器內元素與容器間的邊距 */
-      margin-bottom: 20px; /* 容器的外邊距 */
+      padding: 0; /* 容器內元素與容器間的邊距 */    
+      background-color: #f0f0f0;
+      z-index: 5;  /* 确保导航栏在页面其他元素的上方 */
     }
     
      /* 導覽列樣式 */
@@ -302,19 +309,19 @@ async def web1():
       height: 45px;
       border-radius: 50%;
       border: none;
+      background-color: transparent;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      background-color: #F4F4F4;
     }
 
     /* 導覽列-按鈕觸碰變色 */
     .navbar-btn:hover {
-      background-color: #f0f0f0;
+      background-color: #e7e6e6;
     }
 
     /* 導覽列-按鈕點擊變色 */
     .navbar-btn:active {
-      background-color: #808080;
+      background-color: #a8a7a7;
     }
 
     /* 左側選單樣式 */
@@ -324,11 +331,11 @@ async def web1():
       left: -400px; /* 將選單放置頁面外 */
       width: 200px;
       height: 100vh;
-      background-color: #ede9e8;
+      background-color: #f0f0f0;
       transition: left 0.3s ease; /* 實現選單滑入效果 */
       padding: 20px;
       box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-      z-index: 2;
+      z-index: 6;
     }
 
     /* 左側選單-選項容器樣式 */
@@ -354,9 +361,10 @@ async def web1():
       height: 40px;
       border: none;
       border-radius: 12px;
-      background-color: #ede9e8;
-      color: #9e9092;
-      gap: 10px;
+      background-color: #f0f0f0;
+      color: #ac9599;
+      gap: 5px;
+      padding: 20px;
       margin-bottom: 10px;
       cursor: pointer;
       transition: background-color 0.3s ease, color 0.3s ease;     
@@ -369,8 +377,10 @@ async def web1():
 
     /* 左側選單-選項按鈕點擊變色 */
     .sidebar-btn:active {
-      background-color: #808080;
+      background-color: #d19494;
       color: #ffffff;
+    }
+
     }
   </style>
 </head>
@@ -378,10 +388,11 @@ async def web1():
 <body>
   <!-- 導覽列 -->
   <div class="navbar-container">
+    <div class="navbar-container">
     <!-- 按鈕_顯示左側選單 -->
-    <button class="navbar-btn" id="sidebarBtn"><i class="bi bi-list" style="transform: scale(1.5);"></i></button>     
+    <button class="navbar-btn" id="sidebarBtn"><i class="bi bi-list" style="transform: scale(1.5); color: #45485f;"></i></button>     
     <!-- 按鈕_顯示設定選單 -->
-    <button class="navbar-btn" id="settingBtn"><i class="bi bi-gear" style="transform: scale(1.5);"></i></button>   
+    <button class="navbar-btn" id="settingBtn"><i class="bi bi-gear" style="transform: scale(1.5); color: #45485f;"></i></button>   
   </div>
 
   <!-- 左側選單 -->
@@ -451,8 +462,9 @@ async def web2():
     <title>表情辨識與肌肉分析</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
    <style>
-    body {       
-        
+    body {           
+        margin: 0; /* 去掉页面默认的外边距 */
+        padding: 0; /* 去掉页面默认的内边距 */
         background-color: #f0f0f0;
         overflow: auto;
     }
@@ -480,8 +492,6 @@ async def web2():
     }
     
     .text {
-	display: flex; /* 使用 flexbox 讓內容保持在一行 */
-        align-items: flex-start; /* 保持文字和換行內容的頂部對齊 */
         margin-bottom: 5px;
         font-size: 20px;
     }
@@ -489,11 +499,15 @@ async def web2():
      /* 容器_導覽列樣式 */
     .navbar-container {
       display: flex;
+      position: fixed;
       align-items: center; /* 水平置中容器內元素 */
       justify-content: space-between; /* 元素分別靠最左和最右端對齊 */
+      width: 100%;
+      height: 50px;
       border-bottom: 1px solid #ccc; /* 底線 */
-      padding-bottom: 10px; /* 容器內元素與容器間的邊距 */
-      margin-bottom: 20px; /* 容器的外邊距 */      
+      padding: 0; /* 容器內元素與容器間的邊距 */    
+      background-color: #f0f0f0;
+      z-index: 5;  /* 确保导航栏在页面其他元素的上方 */
     }
     
      /* 導覽列樣式 */
@@ -512,12 +526,12 @@ async def web2():
 
     /* 導覽列-按鈕觸碰變色 */
     .navbar-btn:hover {
-      background-color: #f0f0f0;
+      background-color: #e7e6e6;
     }
 
     /* 導覽列-按鈕點擊變色 */
     .navbar-btn:active {
-      background-color: #808080;
+      background-color: #a8a7a7;
     }
 
     /* 左側選單樣式 */
@@ -527,11 +541,11 @@ async def web2():
       left: -400px; /* 將選單放置頁面外 */
       width: 200px;
       height: 100vh;
-      background-color: #ede9e8;
+      background-color: #f0f0f0;
       transition: left 0.3s ease; /* 實現選單滑入效果 */
       padding: 20px;
       box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-      z-index: 2;
+      z-index: 6;
     }
 
     /* 左側選單-選項容器樣式 */
@@ -557,9 +571,10 @@ async def web2():
       height: 40px;
       border: none;
       border-radius: 12px;
-      background-color: #ede9e8;
-      color: #9e9092;
-      gap: 10px;
+      background-color: #f0f0f0;
+      color: #ac9599;
+      gap: 5px;
+      padding: 20px;
       margin-bottom: 10px;
       cursor: pointer;
       transition: background-color 0.3s ease, color 0.3s ease;     
@@ -572,7 +587,7 @@ async def web2():
 
     /* 左側選單-選項按鈕點擊變色 */
     .sidebar-btn:active {
-      background-color: #808080;
+      background-color: #d19494;
       color: #ffffff;
     }
 
@@ -589,8 +604,10 @@ async def web2():
         font-size: 20px;
         font-weight: bold;
         color: #7F7F7F;
+        background-color: white;
         padding: 15px;
         position: relative;
+        margin-top: 80px;
         box-sizing: border-box;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
@@ -632,7 +649,7 @@ async def web2():
         padding: 12px 20px;
         font-size: 16px;
         cursor: pointer;
-        background-color: #8abeff;
+        background-color: #9DB6CF;
         color: white;
         border: none;
         border-radius: 5px;
@@ -644,8 +661,8 @@ async def web2():
         max-width: 400px;
         width: 100%;
         aspect-ratio: 1 / 1;
-        background-color: transparent;
-        border: 3px solid black;
+        background-color: #FFFFFF;
+        border: 3px solid #999a9b;
         box-sizing: border-box;
         border-radius: 5px;
         overflow: hidden; /* 確保內容不會超出容器 */
@@ -668,20 +685,55 @@ async def web2():
         width: 80%;
         height: 95%;
         background-color: transparent;
-        border: 5px solid black;
+        border: 5px solid #999a9b;
         border-radius: 50%;
     }
 
     /* 按鈕普通 */
     .norm-button {
-        margin-top: 10px;
-        padding: 10px 20px;
-        font-size: 16px;
+        align-items: center;
+        appearance: none;
+        background-color: #8db18e;
+        border-radius: 4px;
+        border-width: 0;
+        box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+        box-sizing: border-box;
+        color: #ffffff;
         cursor: pointer;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
+        display: inline-flex;
+        font-family: "JetBrains Mono",monospace;
+        min-width: 111px;
+        height: 48px;
+        justify-content: center;
+        line-height: 1;
+        list-style: none;
+        overflow: hidden;
+        padding-left: 16px;
+        padding-right: 16px;
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        transition: box-shadow .15s,transform .15s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        will-change: box-shadow,transform;
+        font-size: 16px;
+    }
+
+    .norm-button:focus {
+        box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 3px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    }
+
+    .norm-button:hover {
+        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+        transform: translateY(-2px);
+    }
+
+    .norm-button:active {
+        box-shadow: #D6D6E7 0 3px 7px inset;
+        transform: translateY(2px);
     }
 
     /* 按鈕-關閉OR返回 */
@@ -716,8 +768,8 @@ async def web2():
     .model-settings-menu {
         display: none;
         position: absolute;
-        bottom: -60px;
-        right: -190px;
+        bottom: -80px;
+        left: 250px;
         background-color: white;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -725,7 +777,7 @@ async def web2():
         width: 200px;
         padding: 10px;
         box-sizing: border-box;
-        z-index: 10;
+        z-index: 2;
     }
 
     /* 模型設定內容-顯示 */
@@ -766,7 +818,7 @@ async def web2():
         display: none;
         position: absolute;
         top: 40px;
-        right: -140px;
+        left: 310px;
         background-color: white;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -777,7 +829,7 @@ async def web2():
         box-sizing: border-box;
         overflow: hidden;
         flex-direction: column;
-        z-index: 10;
+        z-index: 2;
     }
 
     /* 預留按鈕-顯示 */
@@ -822,12 +874,14 @@ async def web2():
         padding: 10px;
         border-radius: 5px;
         width: 150px;
-        z-index: 1;
+        left: -20px;
+        top: -50px;   
         font-size: 18px;
         display: none;
         word-wrap: break-word;
         white-space: normal;
         word-break: keep-all;
+        z-index: 1;
     }
 
     /* 攝像頭影像 */
@@ -837,6 +891,15 @@ async def web2():
         transform: scaleX(-1);
         filter: brightness(100%); /* 调整亮度的滤镜，数值可以根据需求调整 */
         object-fit: cover; /* 填满容器并保持纵横比 */
+    }
+
+    /* 上傳圖像頁面-按鈕-容器 */
+    .Upload-Btn-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        margin-top: 10px;
     }
 
     /* 圖像上傳預覽 */
@@ -943,9 +1006,9 @@ async def web2():
     <!-- 導覽列 -->
   <div class="navbar-container">
     <!-- 按鈕_顯示左側選單 -->
-    <button class="navbar-btn" id="sidebarBtn"><i class="bi bi-list" style="transform: scale(1.5);"></i></button>     
+    <button class="navbar-btn" id="sidebarBtn"><i class="bi bi-list" style="transform: scale(1.5); color: #45485f;"></i></button>     
     <!-- 按鈕_顯示設定選單 -->
-    <button class="navbar-btn" id="settingBtn"><i class="bi bi-gear" style="transform: scale(1.5);"></i></button>   
+    <button class="navbar-btn" id="settingBtn"><i class="bi bi-gear" style="transform: scale(1.5); color: #45485f;"></i></button>   
   </div>
 
   <!-- 左側選單 -->
@@ -970,7 +1033,7 @@ async def web2():
 
         <!-- 預留按鈕和選單 -->
         <button class="reserved-menu-btn" id="reserved-menu-btn">
-            <i class="bi bi-three-dots-vertical"></i>
+            <i class="bi bi-three-dots-vertical" style="color: #7a8b9c;"></i>
         </button>
 	<div class="reserved-menu" id="reserved-menu">
             <button>選項 1</button>
@@ -982,7 +1045,7 @@ async def web2():
 
         <!-- 模型設定按鈕和選單 -->
         <button class="model-settings-btn" id="model-settings-btn">
-            <i class="bi bi-gear"></i>
+            <i class="bi bi-gear" style="color: #7a8b9c;"></i>
         </button>
         <div class="model-settings-menu" id="model-settings-menu">
             <div class="model-settings-container">
@@ -1015,7 +1078,7 @@ async def web2():
         <!-- 攝像頭功能頁 -->
         <div class="add-sample-container" id="add-sample-camera">
             <button class="close-button" id="close-btn-camera"><i class="bi bi-x-circle-fill" style="transform: scale(1.5); color: red;"></i></button>
-            <div class="text">請將臉部對齊圓圈。</div>	    
+            <div class="text">請將臉部對齊圓圈</div>	    
             <div class="box"> <video id="video" autoplay="true" playsinline></video> 
 	    <div class="facefilter"></div></div>              
             <button class="norm-button" id="analyzeBtn-camera">開始分析</button>
@@ -1026,10 +1089,12 @@ async def web2():
             <button class="close-button" id="close-btn-upload"><i class="bi bi-x-circle-fill" style="transform: scale(1.5); color: red;"></i></button>
 	    <!-- 隱藏的 input file 按鈕 -->
     	    <input type="file" id="hiddenFileInput" style="display: none;" accept="image/png, image/jpeg">
-	    <button class="norm-button" id="upload-btn">從裝置上傳</button>
             <div class="text">預覽圖像</div>
             <div class="box" id="UploadSamplePreview"></div>
+            <div class="Upload-Btn-container" id="Upload-Btn-container">
+            <button class="norm-button" id="upload-btn">從裝置上傳</button>
             <button class="norm-button" id="analyzeBtn-upload">開始分析</button>
+           </div>
         </div>
     </div>
 
@@ -1456,6 +1521,7 @@ document.getElementById('analyzeBtn-upload').addEventListener('click', () => {
 </body>
 
 </html>
+
 
 
 """
