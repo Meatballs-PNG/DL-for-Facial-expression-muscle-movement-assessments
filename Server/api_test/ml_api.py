@@ -1002,8 +1002,8 @@ async def web2():
 
     /* 回傳結果-肌肉-圖標 */
     .muicon {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         margin-right: 10px;
     }
@@ -1533,6 +1533,7 @@ document.getElementById('analyzeBtn-upload').addEventListener('click', () => {
 </body>
 
 </html>
+
 
 
 """
