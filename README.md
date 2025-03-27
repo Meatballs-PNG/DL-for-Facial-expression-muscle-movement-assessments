@@ -1,6 +1,5 @@
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/圖片1.png" alt="圖片1" width="500" height="420" />
-    <img src="Abstract-Image/圖片2.png" alt="圖片2" width="500" height="420" />
 </div>
 
 <h1 align="center" >基於深度學習之臉部表情肌肉運動評估</h1>
@@ -13,3 +12,4 @@
 >- 
 >- 由於超過上傳限制，本專題使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
 >- 由於超過上傳限制，本專題相關操作說明影片( 包含: 從伺服器Anaconda環境建構 到 成功開啟web並操作、ngrok的安裝 & 使用、伺服器 & 網頁程式的講解 )，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1frIJKcMg8L7DhP54NXZa4SYiYFd3Rzf7?usp=sharing
+ <img src="Abstract-Image/圖片2.png" alt="圖片2" width="500" height="420" />
