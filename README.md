@@ -5,6 +5,8 @@
 <h1 align="center" >基於深度學習之臉部表情肌肉運動評估</h1>
 <h1 align="center" >Deep learning for Facial expression muscle movement assessments</h1>
 
+本專題系統使用之模型，用於訓練的資料集為kaggle的實際臉部資料集(raf-db)，取三類進行訓練(生氣、快樂、無表情)，每類通過複製和刪減平衡至2000張，批次 ep 準確率
+
 
 
 >- 本研究目前已成功透過 MediaPipe 臉部網格，清楚定位臉部肌肉相對於網格的位置。同時，結合雲端伺服器和表情辨識技術，實現即時的臉部表情偵測。
