@@ -1,6 +1,6 @@
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/圖片1.png" alt="圖片1" width="400" height="330" />
-    <img src="Abstract-Image/圖片2.png" alt="圖片2" width="400" height="330" />
+    <img src="Abstract-Image/圖片1.png" alt="圖片1" width="500" height="450" />
+    <img src="Abstract-Image/圖片2.png" alt="圖片2" width="500" height="450" />
 </div>
 
 <h1 align="center" >基於深度學習之臉部表情肌肉運動評估</h1>
