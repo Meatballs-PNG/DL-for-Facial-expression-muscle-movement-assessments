@@ -1,5 +1,5 @@
 # 表情辨識與肌肉分析
-<div style="display: flex;">
+<div style="display: flex ;" align="center">
     <img src="Abstract-Image/圖片1.png" alt="圖片1" width="400" height="330" />
     <img src="Abstract-Image/圖片2.png" alt="圖片2" width="400" height="330" />
 </div>
