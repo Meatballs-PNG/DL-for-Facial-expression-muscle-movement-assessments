@@ -1,5 +1,5 @@
 # 表情辨識與肌肉分析
-![Alt text](Abstract-Image/圖片1.png "TensorFlow Lite C++")
+![Alt text](Abstract-Image/圖片1.png ) ![Alt text](Abstract-Image/圖片2.png )
 <h1 align="center" >Welcome to TensorFlow Lite C++ Series</h1>
 
 >- 本研究目前已成功透過 MediaPipe 臉部網格，清楚定位臉部肌肉相對於網格的位置。同時，結合雲端伺服器和表情辨識技術，實現即時的臉部表情偵測。
