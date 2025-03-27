@@ -1,7 +1,7 @@
 # 表情辨識與肌肉分析
 <div style="display: flex;">
-    <img src="Abstract-Image/圖片1.png" alt="圖片1" width="300" high="200" style="margin-right: 10px;" />
-    <img src="Abstract-Image/圖片2.png" alt="圖片2" width="300" high="200" />
+    <img src="Abstract-Image/圖片1.png" alt="圖片1" width="300" height="200" style="margin-right: 10px;" />
+    <img src="Abstract-Image/圖片2.png" alt="圖片2" width="300" height="200" />
 </div>
 
 <h1 align="center" >Welcome to TensorFlow Lite C++ Series</h1>
