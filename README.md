@@ -70,7 +70,7 @@
 </h4>
 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/局部.png" alt="系統流程"  />
+    <img src="Abstract-Image/局部.png" alt="系統流程" width="500" />
     <h4>圖2、系統流程圖</h4>
 </div>
 
@@ -81,7 +81,7 @@
 </h4>
 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/公式1.png" alt="系統流程"  />
+    <img src="Abstract-Image/公式1.png" alt="系統流程" width="500" />
     <h4>圖2、系統流程圖</h4>
 </div>
 
@@ -93,7 +93,7 @@
 </h4>
 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/AU相關影像擷取.jpg" alt="系統流程"  />
+    <img src="Abstract-Image/AU相關影像擷取.jpg" alt="系統流程"  width="500" />
     <h4>圖2、系統流程圖</h4>
 </div>
 
@@ -104,7 +104,7 @@
 </h4>
 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/lbp.png" alt="系統流程"  />
+    <img src="Abstract-Image/lbp.png" alt="系統流程" width="500"  />
     <h4>圖2、系統流程圖</h4>
 </div>
 
