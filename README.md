@@ -12,6 +12,7 @@
 >- 模型架構說明
 >- 使用之數據集介紹 & 與預處理
 >- 本專題模型相關配置說明
+>- 系統環境與設備說明
 >- 系統相關操作說明影片
 
 # 系統說明
@@ -98,9 +99,14 @@
 
 >- 由於超過上傳限制，本專題系統使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
 
+# 系統環境與設備說明
+<h4 style="text-align: justify;">
+    本專題系統建構於Ubuntu 24.04.2 LTS的anaconda環境(anaconda環境檔於文件中可找到)，編程語言為Python，模型訓練時有使用GPU加速，顯卡為NVIDIA GeForce RTX 3060。
+</h4>
+
 # 系統相關操作說明影片
 <h4 style="text-align: justify;">
-    本專題有另外錄製系統相關系統環境建置、操作、程式說明..等影片(包含: 從伺服器Anaconda環境建構 到 成功開啟web並操作、ngrok的安裝 & 使用、伺服器 & 網頁程式的講解 )
+    本專題有另外錄製系統相關系統環境建置、操作、程式說明..等影片(包含: 從伺服器Anaconda環境建構 到 成功開啟web並操作、ngrok的安裝 & 使用、伺服器 & 網頁程式的講解 )。
 </h4>
 
 >- 由於超過上傳限制，本專題相關操作說明影片，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1frIJKcMg8L7DhP54NXZa4SYiYFd3Rzf7?usp=sharing
