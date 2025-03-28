@@ -137,10 +137,22 @@ https://www.kaggle.com/datasets/shuvoalok/raf-db-dataset) </h4>
 </h4>
 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/lbp.png" alt="系統流程" width="500"  />
+    <img src="Abstract-Image/AU與肌肉對應及其網格標記.png" alt="AU與肌肉對應及其網格標記" width="500"  />
     <h4>圖8、AU與肌肉對應及其網格標記 (參考: 3Dbody解剖軟體: 
 https://apps.apple.com/tw/app/3dbody%E8%A7%A3%E5%89%96/id1003630908 )</h4>
 </div>
+
+# 重心座標插值演算 
+在將臉部肌肉與網格位置對應時，不一定每塊肌肉都有對應的網格點特徵。
+因此，本研究透過重心座標公式進行插值之方法，通過對所需位置附近已知的網
+格點位置進行演算，來改善 MediaPipe 臉部網格模型的精確性。 
+
+# 最佳化定位搜尋
+在此搜尋算法中，將透過影像RGB資訊與臉部網格(Face Mesh)定位出肌肉
+點位置。首先，將以手動方式將肌肉邊緣圈出，並將此影像與網格影像重疊。接
+著針對肌肉邊緣進行取樣，每一取樣點𝑆𝑃將搜尋其最靠近的特徵點群，並透過重
+心座標的計算，不斷迭代直至足夠靠近紅點處(所需位置)進行插值，如表1與圖
+10 所示。 
 
 # 使用之數據集介紹 & 與預處理
 <h4 style="text-align: justify;">
