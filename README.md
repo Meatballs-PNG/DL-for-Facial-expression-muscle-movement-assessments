@@ -58,11 +58,15 @@
 </div>
 
 # 模型說明
-本專題系統使用之模型，用於訓練的資料集為kaggle的實際臉部資料集(raf-db)，取三類進行訓練(生氣、快樂、無表情)，每類通過複製和刪減平衡至2000張，批次 ep 準確率
+<h4 style="text-align: justify;">
+    本專題系統使用之模型，用於訓練的資料集為kaggle的實際臉部資料集(raf-db)，取三類進行訓練(生氣、快樂、無表情)，每類通過複製和刪減平衡至2000張，批次 ep 準確率
+</h4>
 >- 由於超過上傳限制，本專題使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
 
 # 系統相關操作說明影片
-本專題有另外錄製系統相關系統環境建置、操作、程式說明..等影片(包含: 從伺服器Anaconda環境建構 到 成功開啟web並操作、ngrok的安裝 & 使用、伺服器 & 網頁程式的講解 )
+<h4 style="text-align: justify;">
+    本專題有另外錄製系統相關系統環境建置、操作、程式說明..等影片(包含: 從伺服器Anaconda環境建構 到 成功開啟web並操作、ngrok的安裝 & 使用、伺服器 & 網頁程式的講解 )
+</h4>
 >- 由於超過上傳限制，本專題相關操作說明影片，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1frIJKcMg8L7DhP54NXZa4SYiYFd3Rzf7?usp=sharing
 
  
