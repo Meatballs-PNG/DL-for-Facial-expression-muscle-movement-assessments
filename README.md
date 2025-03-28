@@ -33,7 +33,7 @@
     此也將反映出臉部的肌肉群活動(凹凸程度)資訊。 
 </h4> 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/mediapipe示意圖.png" alt="mediapipe示意圖" width="300" height="100"/>
+    <img src="Abstract-Image/mediapipe示意圖.png" alt="mediapipe示意圖" width="300" height="150"/>
      <h3>圖1、臉部網格 (圖片來源: https://developers.google.com/mediapipe)</h3>
 </div>
 
