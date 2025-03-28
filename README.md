@@ -59,22 +59,20 @@
 
 # 模型說明
 <h4 style="text-align: justify;">
-    本專題模型的建立是基於Xeption的預訓練網路(由ImageNet資料及訓練後
-的權重)，Xeption 是由 Inception 的架構延伸而來(圖 7(a))，主要理念是具有多尺
-寸濾波的 CNN 架構，其目的在保留細節特徵，較不易因梯度消失而被破壞。而
-Xception 乃將此架構延伸並做串接，而形成更完整的網路框架(圖7(b))，除了多尺
-寸的濾波外，更使用 1x1 的捲機方式做出跨層的特徵整合，使其網路不但具有較
-少的參數也保留其多層特徵的特性。此外，在此基底模型後串接上將串接上注意
-力網路Convolutional Block Attention Module (CBAM)，用以將所學的特徵值再次
-萃取，保留可用特徵並降低無效特徵，其架構如圖7(c)。
+    本專題模型的建立是基於Xeption的預訓練網路(由ImageNet資料及訓練後的權重)，Xeption 是由 Inception 的架構延伸而來(圖 7(a))，
+    主要理念是具有多尺寸濾波的 CNN 架構，其目的在保留細節特徵，較不易因梯度消失而被破壞。
+    而Xception乃將此架構延伸並做串接，而形成更完整的網路框架(圖7(b))，除了多尺寸的濾波外，
+    更使用 1x1 的捲機方式做出跨層的特徵整合，使其網路不但具有較少的參數也保留其多層特徵的特性。
+    此外，在此基底模型後串接上將串接上注意力網路Convolutional Block Attention Module (CBAM)，
+    用以將所學的特徵值再次萃取，保留可用特徵並降低無效特徵，其架構如圖7(c)。
 </h4>
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/a.png" alt="Inception-v3 架構示意圖" width="500"/>
-    <h4>圖1(a)、臉部網格</h4>
+    <h4>圖1(a)、Inception-v3 架構示意圖</h4>
     <img src="Abstract-Image/b.png" alt="Xception網路架構示意圖" width="500"/>
-    <h4>圖1(b)、臉部網格</h4>
+    <h4>圖1(b)、Xception網路架構示意圖</h4>
     <img src="Abstract-Image/c.png" alt="CBAM示意圖" width="500"/>
-    <h4>圖1(c)、臉部網格 </h4>
+    <h4>圖1(c)、CBAM示意圖</h4>
 </div>
 >- 由於超過上傳限制，本專題使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
 
