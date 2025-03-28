@@ -5,10 +5,6 @@
 <h1 align="center" >基於深度學習之臉部表情肌肉運動評估</h1>
 <h1 align="center" >Deep learning for Facial expression muscle movement assessments</h1>
 
->- 系統說明
->- 系統流程
->- 模型說明
-
 # 系統說明
 
 # 系統流程
