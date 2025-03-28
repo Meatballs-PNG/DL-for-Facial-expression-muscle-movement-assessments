@@ -34,7 +34,7 @@
 </h4> 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/mediapipe示意圖.png" alt="mediapipe示意圖" width="300" height="150"/>
-     <h3>圖1、臉部網格 (圖片來源: https://developers.google.com/mediapipe)</h3>
+     <h4>圖1、臉部網格 (圖片來源: https://developers.google.com/mediapipe)</h4>
 </div>
 
 # 系統流程
@@ -48,7 +48,7 @@
 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/流程圖.png" alt="系統流程"  />
-    <h3>圖1、系統流程圖</h3>
+    <h4>圖1、系統流程圖</h4>
 </div>
 
 # 模型說明
