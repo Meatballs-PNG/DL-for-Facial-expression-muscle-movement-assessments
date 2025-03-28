@@ -70,10 +70,11 @@ Xception 乃將此架構延伸並做串接，而形成更完整的網路框架(�
 </h4>
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/a.png" alt="Inception-v3 架構示意圖" width="500"/>
+    <h4>圖1(a)、臉部網格</h4>
     <img src="Abstract-Image/b.png" alt="Xception網路架構示意圖" width="500"/>
+    <h4>圖1(b)、臉部網格</h4>
     <img src="Abstract-Image/c.png" alt="CBAM示意圖" width="500"/>
-    
-    <h4>圖1、臉部網格 (圖片來源: https://developers.google.com/mediapipe)</h4>
+    <h4>圖1(c)、臉部網格 </h4>
 </div>
 >- 由於超過上傳限制，本專題使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
 
