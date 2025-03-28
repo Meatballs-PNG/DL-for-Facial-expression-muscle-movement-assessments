@@ -180,6 +180,13 @@ https://apps.apple.com/tw/app/3dbody%E8%A7%A3%E5%89%96/id1003630908 )</h4>
 心座標的計算，不斷迭代直至足夠靠近紅點處(所需位置)進行插值，如表1與圖
 10 所示。 
 </h4>
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/表1.png" alt="定位搜尋插值演算法 " width="500"  />
+</div>
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/定位搜尋插值演算法示意圖.png" alt="定位搜尋插值演算法示意圖" width="500"  />
+    <h4>圖8、定位搜尋插值演算法示意圖 </h4>
+</div>
 
 # 使用之數據集介紹 & 與預處理
 <h4 style="text-align: justify;">
