@@ -10,7 +10,8 @@
 >- 相關技術
 >- 系統流程
 >- 模型架構說明
->- 本專題系統模型說明
+>- 使用之數據集介紹 & 與預處理
+>- 本專題模型相關配置說明
 >- 系統相關操作說明影片
 
 # 系統說明
@@ -77,12 +78,23 @@
     <h4>圖1(c)、CBAM示意圖</h4>
 </div>
 
-# 模型架構說明
+# 使用之數據集介紹 & 與預處理
 <h4 style="text-align: justify;">
-    本專題有另外錄製系統相關系統環境建置、操作、程式說明..等影片(包含: 從伺服器Anaconda環境建構 到 成功開啟web並操作、ngrok的安裝 & 使用、伺服器 & 網頁程式的講解 )
+    本專題採用 Real-world Affective Faces Database (RAF-DB) 數據集，該數據集包含七種情緒類別：
+    生氣(Angry)、厭惡(digest)、害怕(fear)、快樂(Happy)、難過(Sad)、驚訝(surprise)和無表情(nature)，
+    共超過 14,000 張彩色圖像，圖像尺寸均為 100×100 像素，並且數據集已提供訓練集和測試集的劃分。
+    鑑於 RAF-DB 數據集中存在部分模糊不清的圖像以及數據分布不平衡的問題
+    (資料個數: 生氣：705、厭惡：717、害怕：281、快樂：4772、無表情：2524難過：1982、驚訝：1290)，
+    本專題對數據進行以下處理：首先利用 MediaPipe 的臉部網格技術進行臉部偵測，剔除無法檢測到臉部的圖像；
+    其次，通過複製與刪除操作調整數據分布，將每類情緒的圖像數量平衡至接近 2000 張。
 </h4>
-1
-    >- 123
+
+# 本專題模型相關配置說明
+<h4 style="text-align: justify;">
+    本專題系統目前使用其中3類（生氣angry、快樂happy和無表情natural）進行訓練，
+    相關模型超參數設置如下: Xception+CBAM 模型(learning rate)為 0.001, L2-regularization 為 0.01, training batch size 為 32, test batch size 為 32, epoch 為 40。
+    其中優化器(optimizer)使用Adam。
+</h4>
 
 >- 由於超過上傳限制，本專題系統使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
 
