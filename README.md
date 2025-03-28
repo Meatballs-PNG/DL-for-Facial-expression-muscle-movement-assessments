@@ -93,7 +93,7 @@
 </h4>
 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/AU相關影像擷取.png" alt="系統流程"  />
+    <img src="Abstract-Image/AU相關影像擷取.jpg" alt="系統流程"  />
     <h4>圖2、系統流程圖</h4>
 </div>
 
