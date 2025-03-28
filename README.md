@@ -52,11 +52,59 @@
 的三維特徵。考慮到表情和臉部肌肉的主要活動都在正面上展現，若從側面擷取
 會導致特徵偏移不準確，將以鼻為中心點將所有特徵點做正規化。後續，將其分
 為2個子系統，個別擷取對應特徵並以不同模型進行訓練，最後再以隨機森林作
-為分類器做表情辨識。 
+為分類器做表情辨識。以下將特徵分為三部分進行討論。 
 </h4>
 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/流程圖.png" alt="系統流程"  />
+    <h4>圖2、系統流程圖</h4>
+</div>
+
+<h4 style="text-align: justify;">
+第一部分以擷取臉部網格之局部自訂特徵(local features,LFs)為主，並嘗試以
+隨機森林模型來訓練。自訂特徵主要用意在表現臉部表情特性，此部分參照FACS
+中AUs 部位，自訂出各AU中具有與表情表現相關的標記點的幾何資訊，如圖
+4 所示。如眼眉部分將紀錄眉毛中心與眉頭和尾的距離與角度關係，嘴巴部分也
+將記錄嘴部張開或閉起等資訊作為特徵，而其他與臉部肌肉運動相關部分也將嘗
+試採用為特徵值，並於模型訓練後理解各部位特徵的表現性。
+</h4>
+
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/局部.png" alt="系統流程"  />
+    <h4>圖2、系統流程圖</h4>
+</div>
+
+<h4 style="text-align: justify;">
+其記錄方式採用座標向量，記錄雙眉間、眼角與嘴角的相關特徵，並通過計
+算距離與向量間的夾角來描述臉部肌肉運動的幾何關係，公式如下(1)(2)(3)，其
+中 i, j, k 分別表示不同點。
+</h4>
+
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/公式1.png" alt="系統流程"  />
+    <h4>圖2、系統流程圖</h4>
+</div>
+
+<h4 style="text-align: justify;">
+第二部分以全臉影像(Full Face Image)與 AU 相關影像擷取為主，此部分是
+對各種不同表情的圖像其不同的AU區塊進行擷取，獲取不同表情下其AU的特
+徵，如圖5所示。此部分以影像辨識為基礎，主要彌補標記點資訊之不足，而表
+情表現出的肌肉活動資訊也將呈現於影像紋路資訊中。 
+</h4>
+
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/AU相關影像擷取.png" alt="系統流程"  />
+    <h4>圖2、系統流程圖</h4>
+</div>
+
+<h4 style="text-align: justify;">
+第三部分以由全臉影像產生之紋理特徵為主，採用Local binary pattern (LBP) 
+演算，得出LBF 二維特徵作為輔助特徵來進行辨識。其特徵計算之如示意圖如
+下。
+</h4>
+
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/lbp.png" alt="系統流程"  />
     <h4>圖2、系統流程圖</h4>
 </div>
 
