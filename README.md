@@ -23,9 +23,6 @@
     例如AU1是內眉上提，AU6是臉頰上提等，涉及單一肌肉的運動或多個肌肉的協同作用。
     每個AU能夠對應不同臉部動作所使用到的肌肉，並使用這些編碼來比較和分析不同個體或情境下的臉部表情變化。 
 </h4> 
-<div style="display: flex ;" align="center">
-    <img src="Abstract-Image/圖片b.png" alt="圖片b" width="500" height="420"  />
-</div>
 
 >- MediaPipe 臉部網格介紹 
 <h4 style="text-align: justify;">
@@ -34,10 +31,10 @@
     作為臉部結構追蹤之重要參考依據，如圖1。其中可發現針對臉部主要結構有清楚的標記點資訊，
     其中並以網格(mesh)方式內插標記點，建立其主要結構連結資訊，而臉部曲面較為複雜處內插標記點越多(即mesh的密度越高)，
     此也將反映出臉部的肌肉群活動(凹凸程度)資訊。 
-    <h3>圖1、臉部網格 (圖片來源: https://developers.google.com/mediapipe)</h3>
 </h4> 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/mediapipe示意圖.png" alt="mediapipe示意圖"/>
+    <img src="Abstract-Image/mediapipe示意圖.png" alt="mediapipe示意圖" width="300" height="200"/>
+     <h3>圖1、臉部網格 (圖片來源: https://developers.google.com/mediapipe)</h3>
 </div>
 
 # 系統流程
