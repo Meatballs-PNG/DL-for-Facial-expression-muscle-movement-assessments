@@ -160,7 +160,7 @@ https://apps.apple.com/tw/app/3dbody%E8%A7%A3%E5%89%96/id1003630908 )</h4>
 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/三角重心.png" alt="三角重心" width="500"  />
-    <h4>圖8、三角形重心座標示意圖 </h4>
+    <h4>圖9、三角形重心座標示意圖 </h4>
 </div>
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/重心座標.png" alt="重心座標" width="500"  />
@@ -168,7 +168,6 @@ https://apps.apple.com/tw/app/3dbody%E8%A7%A3%E5%89%96/id1003630908 )</h4>
 </div>
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/座標轉換.png" alt="AU與肌肉對應及其網格標記" width="500"  />
-    <h4>圖8、重心座標公式</h4>
 </div>
 
 
@@ -185,7 +184,7 @@ https://apps.apple.com/tw/app/3dbody%E8%A7%A3%E5%89%96/id1003630908 )</h4>
 </div>
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/定位搜尋插值演算法示意圖.png" alt="定位搜尋插值演算法示意圖" width="500"  />
-    <h4>圖8、定位搜尋插值演算法示意圖 </h4>
+    <h4>圖10、定位搜尋插值演算法示意圖 </h4>
 </div>
 
 # 使用之數據集介紹 & 與預處理
