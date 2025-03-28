@@ -13,7 +13,7 @@
 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/流程圖.png" alt="系統流程"  />
-    <h3>下圖為本專題之系統流程圖</h3>
+    <h3>圖1、系統流程圖</h3>
 </div>
 
 # 模型說明
