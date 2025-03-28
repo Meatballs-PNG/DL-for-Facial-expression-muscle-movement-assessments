@@ -64,25 +64,25 @@
 第一部分以擷取臉部網格之局部自訂特徵(local features,LFs)為主，並嘗試以
 隨機森林模型來訓練。自訂特徵主要用意在表現臉部表情特性，此部分參照FACS
 中AUs 部位，自訂出各AU中具有與表情表現相關的標記點的幾何資訊，如圖
-4 所示。如眼眉部分將紀錄眉毛中心與眉頭和尾的距離與角度關係，嘴巴部分也
+3 所示。如眼眉部分將紀錄眉毛中心與眉頭和尾的距離與角度關係，嘴巴部分也
 將記錄嘴部張開或閉起等資訊作為特徵，而其他與臉部肌肉運動相關部分也將嘗
 試採用為特徵值，並於模型訓練後理解各部位特徵的表現性。
 </h4>
 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/局部.png" alt="系統流程" width="500" />
-    <h4>圖2、系統流程圖</h4>
+    <h4>圖3、局部自訂特徵示意圖 (local features,LFs) </h4>
 </div>
 
 <h4 style="text-align: justify;">
 其記錄方式採用座標向量，記錄雙眉間、眼角與嘴角的相關特徵，並通過計
-算距離與向量間的夾角來描述臉部肌肉運動的幾何關係，公式如下(1)(2)(3)，其
+算距離與向量間的夾角來描述臉部肌肉運動的幾何關係，公式如下圖4(1)(2)(3)，其
 中 i, j, k 分別表示不同點。
 </h4>
 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/公式1.png" alt="系統流程" width="500" />
-    <h4>圖2、系統流程圖</h4>
+    <h4>圖4、局部特徵紀錄公式</h4>
 </div>
 
 <h4 style="text-align: justify;">
@@ -94,7 +94,8 @@
 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/AU相關影像擷取.jpg" alt="系統流程"  width="500" />
-    <h4>圖2、系統流程圖</h4>
+    <h4>圖5、AU特徵擷取示意圖 (圖片來源: 
+https://www.kaggle.com/datasets/shuvoalok/raf-db-dataset) </h4>
 </div>
 
 <h4 style="text-align: justify;">
@@ -105,7 +106,7 @@
 
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/lbp.png" alt="系統流程" width="500"  />
-    <h4>圖2、系統流程圖</h4>
+    <h4>圖6、LBP示意圖</h4>
 </div>
 
 # 模型架構說明
@@ -120,11 +121,25 @@
 </h4>
 <div style="display: flex ;" align="center">
     <img src="Abstract-Image/a.png" alt="Inception-v3 架構示意圖" width="500"/>
-    <h4>圖1(a)、Inception-v3 架構示意圖</h4>
+    <h4>圖7(a)、Inception-v3 架構示意圖</h4>
     <img src="Abstract-Image/b.png" alt="Xception網路架構示意圖" width="500"/>
-    <h4>圖1(b)、Xception網路架構示意圖</h4>
+    <h4>圖7(b)、Xception網路架構示意圖</h4>
     <img src="Abstract-Image/c.png" alt="CBAM示意圖" width="500"/>
-    <h4>圖1(c)、CBAM示意圖</h4>
+    <h4>圖7(c)、CBAM示意圖</h4>
+</div>
+
+# 臉部網格之AU與肌肉對應模組 
+<h4 style="text-align: justify;">
+    本專題利用 MediaPipe 的臉部網格模型，根據每個 Action Unit (AU) 對應的肌肉部位，標記其在臉部網格模型上的大致位置，
+    同時將這些區域的特徵編號進行紀錄。比如微笑能透過組合 AU6 (眼輪匝肌的拉動) 和 AU12 (顴大肌的拉動) 表現出來，
+    如圖8左圖，而難過則是藉由AU1(額肌的拉動)、 AU4 (降眉肌的拉動) 和 AU15 (降口角肌的拉動) 表現出來，如圖 8 右圖。
+    據此方式目前已經標記出用於確定情緒的主要動作單元約 46 種。
+</h4>
+
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/lbp.png" alt="系統流程" width="500"  />
+    <h4>圖8、AU與肌肉對應及其網格標記 (參考: 3Dbody解剖軟體: 
+https://apps.apple.com/tw/app/3dbody%E8%A7%A3%E5%89%96/id1003630908 )</h4>
 </div>
 
 # 使用之數據集介紹 & 與預處理
