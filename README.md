@@ -75,7 +75,7 @@
     <img src="Abstract-Image/c.png" alt="CBAM示意圖" width="500"/>
     <h4>圖1(c)、CBAM示意圖</h4>
 </div>
->- 由於超過上傳限制，本專題使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
+>- 由於超過上傳限制，本專題系統使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
 
 # 系統相關操作說明影片
 <h4 style="text-align: justify;">
