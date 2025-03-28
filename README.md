@@ -2,15 +2,18 @@
 <h1 align="center" >Deep learning for Facial expression muscle movement assessments</h1>
 
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/圖片a.png" alt="圖片a"  />
+    <img src="Abstract-Image/圖片a.png" alt="網頁實機畫面"  />
 </div>
 
 # 系統說明
 
+
 # 系統流程
+下突圍本專題之系統流程圖
 <div style="display: flex ;" align="center">
-    <img src="Abstract-Image/圖片a.png" alt="圖片a"  />
+    <img src="Abstract-Image/流程圖.png" alt="系統流程"  />
 </div>
+
 # 模型說明
 本專題系統使用之模型，用於訓練的資料集為kaggle的實際臉部資料集(raf-db)，取三類進行訓練(生氣、快樂、無表情)，每類通過複製和刪減平衡至2000張，批次 ep 準確率
 
