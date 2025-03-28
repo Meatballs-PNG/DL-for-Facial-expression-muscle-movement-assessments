@@ -158,6 +158,20 @@ https://apps.apple.com/tw/app/3dbody%E8%A7%A3%E5%89%96/id1003630908 )</h4>
 為笛卡兒座標系，如以下公式(4)(5)。 
 </h4>
 
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/三角重心.png" alt="三角重心" width="500"  />
+    <h4>圖8、三角形重心座標示意圖 </h4>
+</div>
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/重心座標.png" alt="重心座標" width="500"  />
+  </h4>
+</div>
+<div style="display: flex ;" align="center">
+    <img src="Abstract-Image/座標轉換.png" alt="AU與肌肉對應及其網格標記" width="500"  />
+    <h4>圖8、重心座標公式</h4>
+</div>
+
+
 >- 最佳化定位搜尋
 <h4 style="text-align: justify;">
 在此搜尋算法中，將透過影像RGB資訊與臉部網格(Face Mesh)定位出肌肉
