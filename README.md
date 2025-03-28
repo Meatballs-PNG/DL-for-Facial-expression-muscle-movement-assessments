@@ -59,7 +59,14 @@
 
 # 模型說明
 <h4 style="text-align: justify;">
-    本專題系統使用之模型，用於訓練的資料集為kaggle的實際臉部資料集(raf-db)，取三類進行訓練(生氣、快樂、無表情)，每類通過複製和刪減平衡至2000張，批次 ep 準確率
+    本專題模型的建立是基於Xeption的預訓練網路(由ImageNet資料及訓練後
+的權重)，Xeption 是由 Inception 的架構延伸而來(圖 7(a))，主要理念是具有多尺
+寸濾波的 CNN 架構，其目的在保留細節特徵，較不易因梯度消失而被破壞。而
+Xception 乃將此架構延伸並做串接，而形成更完整的網路框架(圖7(b))，除了多尺
+寸的濾波外，更使用 1x1 的捲機方式做出跨層的特徵整合，使其網路不但具有較
+少的參數也保留其多層特徵的特性。此外，在此基底模型後串接上將串接上注意
+力網路Convolutional Block Attention Module (CBAM)，用以將所學的特徵值再次
+萃取，保留可用特徵並降低無效特徵，其架構如圖7(c)。
 </h4>
 
 >- 由於超過上傳限制，本專題使用之模型，放置於google雲端硬碟，網址: https://drive.google.com/drive/folders/1f8ws5u3OsfaRlpCaTlERSc7QMihSm0U2?usp=sharing
